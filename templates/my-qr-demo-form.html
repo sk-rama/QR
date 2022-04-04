@@ -1,0 +1,140 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} UI Buttons {% endblock %} 
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+<div class="py-4">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb breadcrumb-dark breadcrumb-transparent">
+            <li class="breadcrumb-item"><a href="#"><span class="fas fa-home"></span></a></li>
+            <li class="breadcrumb-item active" aria-current="page"><a href="#">QR Code Generator Demo</a></li>
+        </ol>
+    </nav>
+    <div class="d-flex justify-content-between w-100 flex-wrap">
+        <div class="mb-3 mb-lg-0">
+            <h1 class="h4">QR Code Generator Demo</h1>
+            <p class="mb-0">Here You can generate QR code for bank transfer with predefined bank account</p>
+        </div>
+        <div>
+            <a href="https://themesberg.com/docs/volt-bootstrap-5-dashboard/components/buttons/" class="btn btn-outline-gray"><i class="far fa-question-circle me-1"></i>QR Code Generator Demo Docs</a>
+        </div>
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="col-12 mb-4">
+        <div class="card border-light shadow-sm components-section">
+            <div class="card-body">
+
+                <form method="post" action="{{ url_for("post_qr_demo_form") }}" novalidate>
+                {{ form.csrf_token }}
+
+                <div class="mb-3">
+                    <label for="iban">Bank Account</label>
+                    <div class="input-group">
+                        <span class="input-group-text" id="basic-addon1"><span class="fas fa-university"></span></span>
+                        {{ form.iban(value='CZ4655000000006026919979', class='form-control', readonly=True) }}
+                        {% if form.iban.errors -%}
+                        <span>{{ form.iban.errors[0] }}</span>
+                        {%- endif %}
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="currency">Currency</label>
+                    <div class="input-group">
+                        <span class="input-group-text" id="basic-addon2"><span class="fas fa-euro-sign"></span></span>
+                        {{ form.currency(value='CZK', class='form-control', readonly=True) }}
+                        {% if form.currency.errors -%}
+                        <span>{{ form.currency.errors[0] }}</span>
+                        {%- endif %}
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="amount">Amount</label>
+                    <div class="input-group">
+                        {% if form.amount.errors -%}
+                            <span class="input-group-text" id="basic-addon3"><span class="far fa-money-bill-alt"></span></span>
+                            {{ form.amount(value='1', class='form-control is-invalid', readonly=False) }}
+                            <div class="invalid-feedback">
+                            {{ form.amount.errors[0] }}  
+                            </div>
+                        {% else %}
+                            <span class="input-group-text" id="basic-addon3"><span class="far fa-money-bill-alt"></span></span>
+                            {{ form.amount(value='1', class='form-control', readonly=False) }}
+                        {%- endif %}                       
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="vs">Variable Symbol</label>
+                    <div class="input-group">
+                        <span class="input-group-text" id="basic-addon4"><span class="far fa-folder"></span></span>
+                        {{ form.vs(value='000045', class='form-control', readonly=True) }}
+                        {% if form.vs.errors -%}
+                        <span>{{ form.vs.errors[0] }}</span>
+                        {%- endif %}
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="message">Message</label>
+                    <div class="input-group">
+                        <span class="input-group-text" id="basic-addon5"><span class="fas fa-file-signature"></span></span>
+                        {{ form.message(value='QR Code payment', class='form-control', readonly=True) }}
+                        {% if form.message.errors -%}
+                        <span>{{ form.message.errors[0] }}</span>
+                        {%- endif %}
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <label for="validationCustomUsername" class="form-label">Username</label>
+                    <div class="input-group">
+                      <span class="input-group-text" id="inputGroupPrepend">@</span>
+                      <input type="text" class="form-control" id="validationCustomUsername" aria-describedby="inputGroupPrepend" required>
+                      <div class="invalid-feedback">
+                        Please choose a username.
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-md-6">
+                    <label for="validationCustom03" class="form-label">City</label>
+                    <input type="text" class="form-control" id="validationCustom03" required>
+                    <div class="invalid-feedback">
+                      Please provide a valid city.
+                    </div>
+                  </div>
+
+                  <div class="mb-4">
+                    <label for="usernameValidate">Username</label>
+                    <input type="text" class="form-control is-invalid" id="usernameValidate" required>
+                    <div class="invalid-feedback">
+                        Please choose a username.
+                    </div>
+                </div>
+                
+            
+
+                <button class="btn btn-dark" type="submit">Generate QR Code</button>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}{% endblock javascripts %}
